@@ -1,4 +1,4 @@
-function addWheel(obj,fn){
+function addWheel(obj,fnDown,fnUp){
 		if(window.navigator.userAgent.toLowerCase().indexOf('firefox')!=-1){
 			obj.addEventListener('DOMMouseScroll',fnEv);
 		}else{
@@ -19,8 +19,11 @@ function addWheel(obj,fn){
 			}else{
 				 down = ev.detail < 0 ? true : false;
 			}
-		
-			typeof fn == 'function' && fn(down);
-			ev.preventDefault();
+			
+			if(down){
+				typeof fnDown === 'function' && fnDown();
+			}else{
+				typeof fnUp === 'function' && fnUp();
+			}
 		}
 	}
